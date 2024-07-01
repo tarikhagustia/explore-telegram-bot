@@ -4,8 +4,8 @@ import { applySchedule, claimCoin, handleStarCommand } from "./functions";
 // TODO
 // 1. Sesion work [DONE]
 // 2. Interact with DB [DONE]
-// 4. Interact with button [ONGOING]
-// 3. Send schedule message to registered user.
+// 4. Interact with button [DONE]
+// 3. Send schedule message to registered user [DONE]
 
 interface User {
   telegramId: number;
