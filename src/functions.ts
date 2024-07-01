@@ -1,6 +1,7 @@
-import { Markup } from "telegraf";
+import { Markup, Telegraf } from "telegraf";
 import type { MyContext } from "./main";
 import { PrismaClient } from "@prisma/client";
+import cron from "node-cron";
 
 // prisma client
 const prisma = new PrismaClient();
@@ -61,4 +62,20 @@ export async function claimCoin(ctx: MyContext) {
   await ctx.reply(
     `You have claimed 1 free coin!. your total coin is ${usr?.coin}`
   );
+}
+
+export async function applySchedule(bot: Telegraf<MyContext>) {
+  cron.schedule("* * * * *", async () => {
+    // fetch all user
+    const users = await prisma.user.findMany();
+    for (const user of users) {
+      bot.telegram.sendMessage(
+        user.telegramId,
+        "You can claim 1 free coin now. Click this button to claim",
+        Markup.keyboard([["🤑 Claim Now"]])
+        .oneTime()
+        .resize()
+      );
+    }
+  });
 }

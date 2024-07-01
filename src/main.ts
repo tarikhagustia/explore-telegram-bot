@@ -1,5 +1,5 @@
 import { Context, session, Telegraf } from "telegraf";
-import { claimCoin, handleStarCommand } from "./functions";
+import { applySchedule, claimCoin, handleStarCommand } from "./functions";
 
 // TODO
 // 1. Sesion work [DONE]
@@ -35,6 +35,9 @@ bot.start(handleStarCommand);
 bot.hears("🤑 Claim Now", async (ctx) => {
   return claimCoin(ctx);
 });
+
+// Apply schedule
+applySchedule(bot);
 
 // Launch bot
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
